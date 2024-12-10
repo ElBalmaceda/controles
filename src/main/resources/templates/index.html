@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz de ejemplo</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="box radio-group">
+            <label><input type="radio" name="buttonGroup" value="button1" th:checked="${opcionSeleccionada == 'opcion1'}"> RadioButton1 en buttonGroup1</label><br>
+            <label><input type="radio" name="buttonGroup" value="button2" th:checked="${opcionSeleccionada == 'opcion2'}"> RadioButton2 en buttonGroup1</label><br>
+        </div>
+
+
+        <div class="box checkbox-group">
+            <label><input type="checkbox" id="checkBox1" th:checked="${checkSeleccionado == 'selecChek1'}"> CheckBox1</label><br>
+        </div>
+
+        <div class="box">
+            <form th:action="@{/itemseleccion}" th:method="post">
+                <label for="selection">SELECCIONE</label>
+                <select id="selection" class="form-control" name="item">
+                    <option th:each="item : ${items}" 
+                        th:text="${item.nombre + ' [' + item.numero +']'}">
+                    </option>
+                </select>
+
+                <button class="btn" type="submit" th:disabled="${param.botonDeshabilitado}">¿Que item esta seleccionado?</button>
+            </form>
+
+            <br>
+            <br>
+            <a th:href="@{/itemlista}">
+                <button class="btn">Agregar items</button>
+            </a>
+            <a th:href="@{/item/eliminar/todo}">
+                <button class="btn">Eliminar items</button>
+            </a>
+            
+        </div>
+        <div class="box button-group">
+            <a th:href="@{/marcarop1}">
+                <button class="btn">Marcar 1</button>
+            </a>
+            <a th:href="@{/marcarcheck}">
+                <button class="btn">Marchar chekBox</button>
+            </a>
+            <a th:href="@{/desmarcar}">
+                <button class="btn">Desmarcar Todo</button><br>
+            </a>
+        </div>
+        <div class="box">  
+            <table class="table table-dark table-striped">
+                <a th:href="@{/personaslist}" class="btn btn-warning">
+                    <button class="btn">Agregar registros</button><br>
+                </a>
+                <a th:href="@{personas/eliminar/todo}" class="btn btn-warning">
+                    <button class="btn">Borrar filas</button>
+                </a>
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="persona : ${personas}">
+                        <td th:text="${persona.id}">ID</td>
+                        <td th:text="${persona.nombre}">Nombre</td>
+                        <td th:text="${persona.edad}">Edad</td>
+                        <td>
+                            <a th:href="@{personas/eliminar/{id}(id=${persona.id})}" class="btn btn-danger">🚮</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+                
+           
+        </div>
+
+        
+
+    </div>
+    <a href="https://www.google.cl/?hl=es">
+        <button class="btn">Cerrar</button>
+    </a>
+    
+
+</body>
+</html>
