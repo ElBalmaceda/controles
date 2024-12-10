@@ -60,7 +60,7 @@ public class ItemController
 	{
 		model.addAttribute("opcionSeleccionada","0");
 		model.addAttribute("checkSeleccionado","0");
-		return "index";
+		return "redirect:/index";
 	}
 	@GetMapping("/marcarcheck")
 	public String marcarCheck(Model model) 
